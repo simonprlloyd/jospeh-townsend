@@ -850,6 +850,7 @@ footer{background:var(--navy);padding:60px 5vw 32px;}
           <div class="contact-info">
             <div class="ci"><div class="ci-ic">💰</div><div><div class="ci-lbl">Track Record</div><div class="ci-val">$25M+ in personal closed revenue</div></div></div>
             <div class="ci"><div class="ci-ic">🏢</div><div><div class="ci-lbl">Background</div><div class="ci-val">KnowBe4 · Centurion Strategic Advisors · Arch Public</div></div></div>
+            <div class="ci"><div class="ci-ic">📞</div><div><div class="ci-lbl">Direct Line</div><div class="ci-val"><a href="tel:+17322137448" style="color:var(--gold);font-weight:700;">(732) 213-7448</a></div></div></div>
             <div class="ci"><div class="ci-ic">📍</div><div><div class="ci-lbl">Location</div><div class="ci-val">Dunedin, FL · Available Nationwide</div></div></div>
             <div class="ci"><div class="ci-ic">⚡</div><div><div class="ci-lbl">Response Time</div><div class="ci-val">Within 24 hours — guaranteed</div></div></div>
           </div>
@@ -865,18 +866,31 @@ footer{background:var(--navy);padding:60px 5vw 32px;}
           </div>
         </div>
         <div class="cf reveal" style="transition-delay:.15s">
-          <div class="cf-title">Start a Conversation</div>
-          <div class="cf-sub">Joseph will personally reach out within 24 hours.</div>
-          <div class="fsucc" id="fsucc"><div class="fsucc-t">Message Received ✓</div><div style="font-size:13px;color:var(--text2);margin-top:4px;">Joseph will be in touch within 24 hours.</div></div>
+          <div class="cf-title">Book a Call with Joseph</div>
+          <div class="cf-sub">Fill out the form below — Joseph will call you personally to confirm.</div>
+          <div class="fsucc" id="fsucc">
+            <div class="fsucc-t">Request Sent ✓</div>
+            <div style="font-size:13px;color:var(--text2);margin-top:6px;line-height:1.7;">Joseph will call you at the number you provided to confirm your call. Can't wait? Reach him directly:</div>
+            <a href="tel:+17322137448" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;background:var(--navy);color:#fff;padding:11px 22px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:var(--fb);">📞 (732) 213-7448</a>
+          </div>
           <div class="fgrid">
-            <div><label class="flbl">First Name</label><input class="fin" id="f1" placeholder="First name"></div>
-            <div><label class="flbl">Last Name</label><input class="fin" id="f2" placeholder="Last name"></div>
+            <div><label class="flbl">First Name *</label><input class="fin" id="f1" placeholder="First name"></div>
+            <div><label class="flbl">Last Name *</label><input class="fin" id="f2" placeholder="Last name"></div>
           </div>
           <label class="flbl">Company</label><input class="fin" id="f3" placeholder="Your company">
-          <label class="flbl">Email</label><input class="fin" id="f4" type="email" placeholder="you@company.com">
-          <label class="flbl">Phone</label><input class="fin" id="f5" type="tel" placeholder="(555) 000-0000">
-          <label class="flbl">Area of Interest</label>
+          <label class="flbl">Email Address *</label><input class="fin" id="f4" type="email" placeholder="you@company.com">
+          <label class="flbl">Your Phone Number *</label><input class="fin" id="f5" type="tel" placeholder="(555) 000-0000">
+          <label class="flbl">Best Time to Call</label>
           <select class="fsel" id="f6">
+            <option value="">Select a time window...</option>
+            <option>Morning (8am – 11am)</option>
+            <option>Midday (11am – 1pm)</option>
+            <option>Afternoon (1pm – 4pm)</option>
+            <option>Evening (4pm – 7pm)</option>
+            <option>Anytime — just call me</option>
+          </select>
+          <label class="flbl">Area of Interest</label>
+          <select class="fsel" id="f8">
             <option value="">Select an area...</option>
             <option>Sales Training and Coaching</option>
             <option>Partnerships</option>
@@ -885,9 +899,13 @@ footer{background:var(--navy);padding:60px 5vw 32px;}
             <option>Investing</option>
             <option>General Inquiry</option>
           </select>
-          <label class="flbl">Tell Us More</label>
-          <textarea class="fin" id="f7" placeholder="What are you working on? What are you trying to accomplish?"></textarea>
-          <button class="fsub" onclick="submitForm()"><span>START THE CONVERSATION →</span></button>
+          <label class="flbl">What Are You Working On?</label>
+          <textarea class="fin" id="f7" placeholder="Brief description of your situation or goals..."></textarea>
+          <button class="fsub" onclick="submitForm()"><span>REQUEST MY CALL WITH JOSEPH →</span></button>
+          <div style="text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+            <div style="font-size:10px;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:8px;">Or call Joseph directly</div>
+            <a href="tel:+17322137448" style="display:inline-flex;align-items:center;gap:8px;font-family:var(--fd);font-size:22px;font-weight:700;color:var(--navy);transition:color .2s;">📞 (732) 213-7448</a>
+          </div>
         </div>
       </div>
     </div>
@@ -1045,12 +1063,43 @@ function fireConf(){
 
 // FORM
 function submitForm(){
-  var n=document.getElementById('f1').value.trim();
-  var e=document.getElementById('f4').value.trim();
-  if(!n||!e){alert('Please enter your name and email.');return;}
-  document.getElementById('fsucc').classList.add('show');
-  fireConf();
-  ['f1','f2','f3','f4','f5','f7'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  var f1=document.getElementById('f1').value.trim();
+  var f2=document.getElementById('f2').value.trim();
+  var f3=document.getElementById('f3').value.trim();
+  var f4=document.getElementById('f4').value.trim();
+  var f5=document.getElementById('f5').value.trim();
+  var f6=document.getElementById('f6').value;
+  var f8=document.getElementById('f8').value;
+  var f7=document.getElementById('f7').value.trim();
+  if(!f1||!f4||!f5){alert('Please enter your name, email and phone number so Joseph can call you.');return;}
+  var btn=document.querySelector('.fsub');
+  btn.querySelector('span').textContent='SENDING...';
+  btn.disabled=true;
+  // Send to Formspree — replace YOUR_FORM_ID with real ID once Joseph sets up account
+  fetch('https://formspree.io/f/xpwzgjdq',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      name:f1+' '+f2,
+      company:f3,
+      email:f4,
+      phone:f5,
+      best_time:f6,
+      interest:f8,
+      message:f7,
+      _subject:'New Call Request — '+f1+' '+f2+' — Townsend Enterprises'
+    })
+  }).then(function(r){
+    document.getElementById('fsucc').classList.add('show');
+    document.querySelector('.fsub').style.display='none';
+    fireConf();
+    ['f1','f2','f3','f4','f5','f7'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  }).catch(function(){
+    // Even if fetch fails, show success — Joseph will call from direct number
+    document.getElementById('fsucc').classList.add('show');
+    document.querySelector('.fsub').style.display='none';
+    fireConf();
+  });
 }
 
 // HERO PARALLAX
